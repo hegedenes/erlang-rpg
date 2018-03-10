@@ -1,0 +1,7 @@
+[{id, 1}, {name, "Rat"},     {damage, {0,5}}, {hp, 10}, {level, 1}, {loot, [{"Rat Meat",     {0,1}}]}].
+[{id, 2}, {name, "Chicken"}, {damage, {0,5}}, {hp, 10}, {level, 1}, {loot, [{"Chicken Meat", {1,2}}]}].
+[{id, 3}, {name, "Rabbit"},  {damage, {0,5}}, {hp, 10}, {level, 1}, {loot, [{"Rabbit Meat",  {1,2}}]}].
+[{id, 4}, {name, "Sheep"},   {damage, {0,5}}, {hp, 10}, {level, 1}, {loot, [{"Sheep Meat",     1  }]}].
+
+[{id, 5}, {name, "Wolf"},    {damage, {5,10}}, {hp, 10}, {level, {3,5}}, {loot, [{"Wolf Meat", 1}, {"Wolf Fang", {0,2}}]}].
+[{id, 6}, {name, "Boar"},    {damage, {5,10}}, {hp, 10}, {level, {3,5}}, {loot, [{"Boar Meat", {1,3}}]}].

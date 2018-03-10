@@ -1,0 +1,48 @@
+<table align="center" style="vertical-align:top; width: 100%; height: 100%; text-align:center;">
+	<tr>
+	<td><table style="width:100%; height: 100%;">
+		<tr><td id="map"></td></tr>
+		<tr><td>
+		<table style="border-collapse: collapse; text-align:center" align="center">
+			<tr>
+				<td></td>
+				<td><button onclick="move('u')" style="height: 50px; width: 40px">u</button></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><button onclick="move('l')" style="height: 40px; width: 50px">l</button></td>
+				<td><button onclick="act()" style="height: 40px; width: 40px">act</button></td>
+				<td><button onclick="move('r')" style="height: 40px; width: 50px">r</button></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><button onclick="move('d')" style="height: 50px; width: 40px">d</button></td>
+				<td></td>
+			</tr>
+		</table>
+		</td></tr>
+	</table></td>
+	<td><table style="background-color: #615726; width:100%; height: 100%;">
+		<tr><td id="stats" style="padding: 5px 5px; vertical-align:top;"></td></tr>
+		<tr><td style="height: 50px;">
+			<hr style="color: #314; background-color: #314; width: 80%;"/>
+			<form>
+				Message: <input type="text" name="msg" />
+				<input type="button" value="Send" onclick="send_msg(this.form)"/>
+			</form>
+			<table align="center"><tr>
+				<td align="center" style="width: 75px;">
+					<button onclick="load('/script/handle%3Aindex', 'mainframe')" style="height: 25px; width: 75px" type="submit">Map</button>
+				</td>
+				<td align="center" style="width: 75px;">
+					<button onclick="load('/script/handle%3Ainventory', 'mainframe')" style="height: 25px; width: 75px" type="submit">Inventory</button>
+				</td>
+				<td align="center" style="width: 75px;">
+					<button onclick="load('/script/handle%3Alogin', 'mainframe')" style="height: 25px; width: 75px" type="submit">Logout</button>
+				</td>
+			</tr></table>
+		</td></tr>
+	</table></td>
+	</tr>
+</table>
+<img onload="logined()" src="empty.gif" />
