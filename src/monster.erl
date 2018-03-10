@@ -13,32 +13,32 @@ start(Args) ->
    gen_server:start(monster, Args, []).
 
 init(Args) ->
-	random:seed(now()),
-	ID = proplists:get_value(id, Args, 0),
-	MapID = proplists:get_value(map, Args, 0),
-	MonData = base:get_monster_data(ID),
-	Level = util:get_range_val(MonData#monster_db.level),
-	Monster = #monster{
-			pid = self(), id = ID, map = MapID,
-			hp  = hp_formula(Level, none),
-			level = Level,
-			pos = proplists:get_value(pos, Args, util:rand_pos())
-		},
-	base:add_unit(Monster),
-	Map = base:get_map(MapID),
-	Map#map.pid ! {add, self()},
-	process_flag(trap_exit, true),
+    random:seed(now()),
+    ID = proplists:get_value(id, Args, 0),
+    MapID = proplists:get_value(map, Args, 0),
+    MonData = base:get_monster_data(ID),
+    Level = util:get_range_val(MonData#monster_db.level),
+    Monster = #monster{
+            pid = self(), id = ID, map = MapID,
+            hp  = hp_formula(Level, none),
+            level = Level,
+            pos = proplists:get_value(pos, Args, util:rand_pos())
+        },
+    base:add_unit(Monster),
+    Map = base:get_map(MapID),
+    Map#map.pid ! {add, self()},
+    process_flag(trap_exit, true),
     {ok, Monster, 2000}.
 
 terminate(Reason, Monster) ->
-	io:format("monster:terminate ~p ~p\n", [Reason, self()]),
-	Map = base:get_map(Monster#monster.map),
-	Map#map.pid ! {remove, Monster#monster.pid},
-	base:remove_unit(Monster).
+    io:format("monster:terminate ~p ~p\n", [Reason, self()]),
+    Map = base:get_map(Monster#monster.map),
+    Map#map.pid ! {remove, Monster#monster.pid},
+    base:remove_unit(Monster).
 
 code_change(OldVsn, State, Extra) ->
-	io:format("monster:code_change: ~p extra: ~p", [OldVsn, Extra]),
-	{ok, State}.
+    io:format("monster:code_change: ~p extra: ~p", [OldVsn, Extra]),
+    {ok, State}.
 
 handle_call(Msg, _From, Monster) ->
     io:format("monster msg: ~p\n", [Msg]),
@@ -49,11 +49,11 @@ handle_cast(Msg, Monster) ->
     {noreply, Monster}.
 
 handle_info(timeout, Monster) ->
-	NewMon =
-		case Monster#monster.can_move of
-			false -> io:format("cant move\n"), Monster;
-			true  -> move(Monster)
-		end,
+    NewMon =
+        case Monster#monster.can_move of
+            false -> io:format("cant move\n"), Monster;
+            true  -> move(Monster)
+        end,
     nr(NewMon);
 handle_info({can_move, Bool}, Monster) ->
     io:format("monster handle_info: can move ~p\n", [Bool]),
@@ -71,14 +71,14 @@ handle_info(Info, Monster) ->
 nr(Monster) -> {noreply, Monster, 2000}.
 
 xp_gain(PL, ML) ->
-	Diff = ML - PL,
-	if Diff < -2 -> 0;
-	   true      -> (Diff + 3) * 5
-	end.
+    Diff = ML - PL,
+    if Diff < -2 -> 0;
+       true      -> (Diff + 3) * 5
+    end.
 
 hp_formula(Level, _Type) ->
-	Level * 10 + util:rand(-5,5).
+    Level * 10 + util:rand(-5,5).
 
 move(Monster = #monster{ pos = {X, Y} }) ->
-	NewPos = {X + util:rand(-1, 1), Y + util:rand(-1, 1)},
-	unit:move_to(Monster, NewPos).
+    NewPos = {X + util:rand(-1, 1), Y + util:rand(-1, 1)},
+    unit:move_to(Monster, NewPos).
